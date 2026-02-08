@@ -1,36 +1,69 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# MediCare 💊
+**"Your Trusted Online Medicine Shop"**
 
-## Getting Started
 
-First, run the development server:
+## Project Overview
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+MediCare is a full-stack e-commerce web application for purchasing over-the-counter (OTC) medicines. Customers can browse medicines, add to cart, and place orders. Sellers manage their medicine inventory and fulfill orders. Admins oversee the platform and manage all users and listings.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+🔗 **Live Site:** 
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Roles & Permissions
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Role | Description | Key Permissions |
+|------|-------------|-----------------|
+| **Customer** | Users who purchase medicines | Browse, cart, order, track status, leave reviews |
+| **Seller** | Medicine vendors/pharmacies | Manage inventory, view orders, update order status |
+| **Admin** | Platform moderators | Manage all inventory, users, oversee orders |
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+## ✨ Features
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Public Features
+- Browse all available medicines
+- Search and filter by category, price, manufacturer
+- View medicine details
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Customer Features
+- Register and login as customer
+- Add medicines to cart
+- Place orders with shipping address (Cash on Delivery)
+- Track order status
+- Leave reviews after ordering
+- Manage profile
 
-## Deploy on Vercel
+### Seller Features
+- Register and login as seller
+- Add, edit, and remove medicines
+- Manage stock levels
+- View incoming orders
+- Update order status
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Admin Features
+- View all users (customers and sellers)
+- Manage user status (ban/unban)
+- View all medicines and orders
+- Manage categories
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+
+## 🛠️ Tech Stack
+
+### Frontend
+| Technology | Purpose |
+|------------|---------|
+| Next.js | App Router, SSR/SSG |
+| TypeScript | Type safety |
+| Tailwind CSS | Styling (Shadcn CSS framework) |
+
+### Backend
+| Technology | Purpose |
+|------------|---------|
+| Node.js + Express.js | REST API |
+| PostgreSQL + Prisma | Database |
+
+### Deployment
+| Service | Purpose |
+|---------|---------|
+| Vercel/Render | Frontend & Backend deployment |
+
