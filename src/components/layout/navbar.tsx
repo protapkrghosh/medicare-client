@@ -1,5 +1,4 @@
 "use client";
-
 import { Book, Menu, Sunset, Trees, Zap } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -61,19 +60,26 @@ interface Navbar1Props {
 
 const Navbar = ({
    logo = {
-      url: "https://www.shadcnblocks.com",
-      src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/shadcnblockscom-icon.svg",
+      url: "",
+      src: "https://i.ibb.co.com/GQXpc2Qt/medicare.png",
       alt: "logo",
       title: "MediCare",
    },
    menu = [
-      { title: "Home", url: "#" },
       {
-         title: "Pricing",
+         title: "Home",
          url: "#",
       },
       {
-         title: "Blog",
+         title: "Medicine",
+         url: "#",
+      },
+      {
+         title: "My Order",
+         url: "#",
+      },
+      {
+         title: "Dashboard",
          url: "#",
       },
    ],
@@ -84,34 +90,33 @@ const Navbar = ({
    className,
 }: Navbar1Props) => {
    return (
-      <section className={cn("py-4", className)}>
+      <section className={cn("", className)}>
          <div className="container">
             {/* Desktop Menu */}
-            <nav className="hidden items-center justify-between lg:flex">
+            <nav className="hidden items-center justify-between lg:flex bg-primary/5 p-3">
                <div className="flex items-center gap-6">
                   {/* Logo */}
                   <a href={logo.url} className="flex items-center gap-2">
                      <Image
                         src={logo.src}
-                        className="max-h-8 dark:invert"
+                        className="dark:invert"
                         alt={logo.alt}
-                        width={100}
+                        width={75}
                         height={100}
                      />
-                     <span className="text-lg font-semibold tracking-tighter">
+                     <span className="text-primary text-[28px] font-bold tracking-tighter">
                         {logo.title}
                      </span>
                   </a>
-                  <div className="flex items-center">
-                     <NavigationMenu>
-                        <NavigationMenuList>
-                           {menu.map((item) => renderMenuItem(item))}
-                        </NavigationMenuList>
-                     </NavigationMenu>
-                  </div>
                </div>
 
-               
+               <div className="flex items-center">
+                  <NavigationMenu>
+                     <NavigationMenuList>
+                        {menu.map((item) => renderMenuItem(item))}
+                     </NavigationMenuList>
+                  </NavigationMenu>
+               </div>
 
                <div className="flex gap-2">
                   <ModeToggle />
@@ -132,9 +137,9 @@ const Navbar = ({
                   <a href={logo.url} className="flex items-center gap-2">
                      <Image
                         src={logo.src}
-                        className="max-h-8 dark:invert"
+                        className="dark:invert"
                         alt={logo.alt}
-                        width={100}
+                        width={75}
                         height={100}
                      />
                   </a>
@@ -153,9 +158,9 @@ const Navbar = ({
                               >
                                  <Image
                                     src={logo.src}
-                                    className="max-h-8 dark:invert"
+                                    className="dark:invert"
                                     alt={logo.alt}
-                                    width={100}
+                                    width={75}
                                     height={100}
                                  />
                               </a>
@@ -214,7 +219,7 @@ const renderMenuItem = (item: MenuItem) => {
       <NavigationMenuItem key={item.title}>
          <NavigationMenuLink
             href={item.url}
-            className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-muted hover:text-accent-foreground"
+            className="group inline-flex h-10 w-max items-center justify-center rounded-md mr-2 text-sm font-medium transition-colors hover:bg-muted hover:text-chart-3 hover:scale-105"
          >
             {item.title}
          </NavigationMenuLink>

@@ -16,6 +16,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
    title: "MediCare",
    description: "Trusted Online Medicine Shop",
+   icons: {
+      icon: "/favicon.ico",
+      shortcut: "/favicon.ico",
+      apple: "/favicon.ico",
+   },
 };
 
 export default function RootLayout({
