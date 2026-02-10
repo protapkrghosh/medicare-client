@@ -11,20 +11,11 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
-import registerImg from "../../../../public/register.jpg";
+import loginImg from "../../../../public/signin.jpg";
 import Link from "next/link";
 import { authClient } from "@/lib/auth-client";
-import {
-   Select,
-   SelectContent,
-   SelectGroup,
-   SelectItem,
-   SelectLabel,
-   SelectTrigger,
-   SelectValue,
-} from "@/components/ui/select";
 
-export function RegisterForm({
+export function LoginForm({
    className,
    ...props
 }: React.ComponentProps<"div">) {
@@ -34,7 +25,7 @@ export function RegisterForm({
          callbackURL: "http://localhost:3000",
       });
 
-      console.log("Register Data :", data);
+      console.log("Login Data :", data);
    };
 
    const session = authClient.useSession();
@@ -47,45 +38,11 @@ export function RegisterForm({
                <form className="p-6 md:p-8">
                   <FieldGroup>
                      <div className="flex flex-col items-center gap-2 text-center">
-                        <h1 className="text-2xl font-bold">
-                           Create your account
-                        </h1>
-                        <p className="text-muted-foreground text-sm text-balance">
-                           Enter your email below to create your account
+                        <h1 className="text-2xl font-bold">Welcome back</h1>
+                        <p className="text-muted-foreground text-balance">
+                           Login to your Acme Inc account
                         </p>
                      </div>
-
-                     <Field>
-                        <FieldLabel htmlFor="name">Full Name</FieldLabel>
-                        <Input
-                           id="name"
-                           type="name"
-                           placeholder="Jhon Deo"
-                           required
-                        />
-                     </Field>
-
-                     <Field>
-                        <FieldLabel htmlFor="role">Who are you?</FieldLabel>
-
-                        <Select>
-                           <SelectTrigger className="w-full">
-                              <SelectValue placeholder="Select a role" />
-                           </SelectTrigger>
-
-                           <SelectContent>
-                              <SelectGroup>
-                                 <SelectLabel>Roles</SelectLabel>
-                                 <SelectItem value="customer">
-                                    Customer
-                                 </SelectItem>
-                                 <SelectItem value="seller">Seller</SelectItem>
-                                 {/* <SelectItem value="admin">Admin</SelectItem> */}
-                              </SelectGroup>
-                           </SelectContent>
-                        </Select>
-                     </Field>
-
                      <Field>
                         <FieldLabel htmlFor="email">Email</FieldLabel>
                         <Input
@@ -95,20 +52,20 @@ export function RegisterForm({
                            required
                         />
                      </Field>
-
                      <Field>
-                        <FieldLabel htmlFor="password">Password</FieldLabel>
+                        <div className="flex items-center">
+                           <FieldLabel htmlFor="password">Password</FieldLabel>
+                           <a
+                              href="#"
+                              className="ml-auto text-sm underline-offset-2 hover:underline"
+                           >
+                              Forgot your password?
+                           </a>
+                        </div>
                         <Input id="password" type="password" required />
                      </Field>
-
-                     <FieldDescription className="-mt-4">
-                        Must be at least 8 characters long.
-                     </FieldDescription>
-
                      <Field>
-                        <Button type="submit" className="cursor-pointer">
-                           Create Account
-                        </Button>
+                        <Button type="submit">Login</Button>
                      </Field>
                      <FieldSeparator className="*:data-[slot=field-separator-content]:bg-card">
                         Or continue with
@@ -117,8 +74,8 @@ export function RegisterForm({
                      <Button
                         variant="outline"
                         type="button"
-                        className="cursor-pointer"
                         onClick={() => handleGoogleLogin()}
+                        className="cursor-pointer"
                      >
                         <svg
                            xmlns="http://www.w3.org/2000/svg"
@@ -129,20 +86,21 @@ export function RegisterForm({
                               fill="currentColor"
                            />
                         </svg>
-                        <span>Sign up with Google</span>
+                        <span>Login with Google</span>
                      </Button>
 
                      <FieldDescription className="text-center">
-                        Already have an account?{" "}
-                        <Link href="/login">Sign in</Link>
+                        Don&apos;t have an account?{" "}
+                        <Link href="/register">Sign up</Link>
                      </FieldDescription>
                   </FieldGroup>
                </form>
+
                <div className="bg-muted relative hidden md:block">
                   <Image
-                     src={registerImg}
+                     src={loginImg}
                      alt="Image"
-                     className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+                     className="absolute inset-0 h-full w-full dark:brightness-[0.2] dark:grayscale"
                   />
                </div>
             </CardContent>
