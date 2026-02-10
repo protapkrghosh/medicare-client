@@ -68,7 +68,12 @@ export function RegisterForm({
          const toastId = toast.loading("Creating user");
 
          try {
-            const { data, error } = await authClient.signUp.email(value);
+            const payload = {
+               ...value,
+               role: value.role.toUpperCase(),
+            };
+
+            const { data, error } = await authClient.signUp.email(payload);
 
             if (error) {
                toast.error(error.message, {
