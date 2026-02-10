@@ -18,6 +18,8 @@ import { authClient } from "@/lib/auth-client";
 import { useForm } from "@tanstack/react-form";
 import * as z from "zod";
 import { toast } from "sonner";
+import { useState } from "react";
+import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 
 const formSchema = z.object({
    email: z.email(),
@@ -28,6 +30,8 @@ export function LoginForm({
    className,
    ...props
 }: React.ComponentProps<"div">) {
+   const [showPassword, setShowPassword] = useState(false);
+
    const handleGoogleLogin = async () => {
       const data = await authClient.signIn.social({
          provider: "google",
@@ -151,16 +155,33 @@ export function LoginForm({
                                     </a>
                                  </div>
 
-                                 <Input
-                                    type="password"
-                                    id={field.name}
-                                    name={field.name}
-                                    value={field.state.value}
-                                    onChange={(e) =>
-                                       field.handleChange(e.target.value)
-                                    }
-                                    placeholder="*********"
-                                 />
+                                 <div className="relative">
+                                                                     <Input
+                                                                        type={showPassword ? "text" : "password"}
+                                                                        id={field.name}
+                                                                        name={field.name}
+                                                                        value={field.state.value}
+                                                                        onChange={(e) =>
+                                                                           field.handleChange(e.target.value)
+                                                                        }
+                                                                        placeholder="*********"
+                                                                        className="pr-10"
+                                                                     />
+                                 
+                                                                     <button
+                                                                        type="button"
+                                                                        onClick={() =>
+                                                                           setShowPassword((prev) => !prev)
+                                                                        }
+                                                                        className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground"
+                                                                     >
+                                                                        {showPassword ? (
+                                                                           <IoMdEyeOff size={18}  className="opacity-60"/>
+                                                                        ) : (
+                                                                           <IoMdEye size={18} className="opacity-60"/>
+                                                                        )}
+                                                                     </button>
+                                                                  </div>
 
                                  {isInvalid && (
                                     <FieldError
