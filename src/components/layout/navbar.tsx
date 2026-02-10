@@ -60,7 +60,7 @@ interface Navbar1Props {
 
 const Navbar = ({
    logo = {
-      url: "",
+      url: "/",
       src: "https://i.ibb.co.com/GQXpc2Qt/medicare.png",
       alt: "logo",
       title: "MediCare",
@@ -84,8 +84,8 @@ const Navbar = ({
       },
    ],
    auth = {
-      login: { title: "Login", url: "#" },
-      signup: { title: "Sign up", url: "#" },
+      login: { title: "Login", url: "/login" },
+      signup: { title: "Sign up", url: "/register" },
    },
    className,
 }: Navbar1Props) => {
