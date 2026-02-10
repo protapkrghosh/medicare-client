@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import {
    Field,
    FieldDescription,
+   FieldError,
    FieldGroup,
    FieldLabel,
    FieldSeparator,
@@ -23,6 +24,17 @@ import {
    SelectTrigger,
    SelectValue,
 } from "@/components/ui/select";
+import { useForm } from "@tanstack/react-form";
+import * as z from "zod";
+import { toast } from "sonner";
+
+const formSchema = z.object({
+   name: z.string().min(1, "This field is required"),
+   image: z.string().min(5, "This field is required"),
+   email: z.email(),
+   password: z.string().min(8, "Minimum length is 8 character"),
+   role: z.string().min(1, "This field is required"),
+});
 
 export function RegisterForm({
    className,
@@ -37,79 +49,251 @@ export function RegisterForm({
       console.log("Register Data :", data);
    };
 
+   const from = useForm({
+      defaultValues: {
+         name: "",
+         image: "",
+         email: "",
+         password: "",
+         role: "",
+      },
+      validators: {
+         onSubmit: formSchema,
+      },
+      onSubmit: async ({ value }) => {
+         const toastId = toast.loading("Creating user");
+
+         try {
+            const { data, error } = await authClient.signUp.email(value);
+
+            if (error) {
+               toast.error(error.message, {
+                  id: toastId,
+                  position: "top-right",
+               });
+               return;
+            }
+
+            toast.success("User Created Successfully", {
+               id: toastId,
+               position: "top-right",
+            });
+
+            from.reset();
+         } catch (error) {
+            toast.error("Something went wrong, Please try again.", {
+               id: toastId,
+               position: "top-right",
+            });
+         }
+      },
+   });
+
    const session = authClient.useSession();
-   console.log(session);
+   // console.log(session);
 
    return (
       <div className={cn("flex flex-col gap-6", className)} {...props}>
          <Card className="overflow-hidden p-0">
             <CardContent className="grid p-0 md:grid-cols-2">
-               <form className="p-6 md:p-8">
+               <form
+                  onSubmit={(e) => {
+                     e.preventDefault();
+                     from.handleSubmit();
+                  }}
+                  className="p-6 md:p-8"
+               >
+                  <div className="flex flex-col items-center gap-2 text-center mb-10">
+                     <h1 className="text-2xl font-bold">Create your account</h1>
+                     <p className="text-muted-foreground text-sm text-balance">
+                        Enter your email below to create your account
+                     </p>
+                  </div>
+
                   <FieldGroup>
-                     <div className="flex flex-col items-center gap-2 text-center">
-                        <h1 className="text-2xl font-bold">
-                           Create your account
-                        </h1>
-                        <p className="text-muted-foreground text-sm text-balance">
-                           Enter your email below to create your account
-                        </p>
-                     </div>
+                     <from.Field
+                        name="name"
+                        children={(field) => {
+                           const isInvalid =
+                              field.state.meta.isTouched &&
+                              !field.state.meta.isValid;
 
-                     <Field>
-                        <FieldLabel htmlFor="name">Full Name</FieldLabel>
-                        <Input
-                           id="name"
-                           type="name"
-                           placeholder="Jhon Deo"
-                           required
-                        />
-                     </Field>
+                           return (
+                              <Field data-invalid={isInvalid}>
+                                 <FieldLabel htmlFor={field.name}>
+                                    Full Name
+                                 </FieldLabel>
+                                 <Input
+                                    type="text"
+                                    id={field.name}
+                                    name={field.name}
+                                    value={field.state.value}
+                                    onChange={(e) =>
+                                       field.handleChange(e.target.value)
+                                    }
+                                    placeholder="Ava Thompson"
+                                 />
 
-                     <Field>
-                        <FieldLabel htmlFor="role">Who are you?</FieldLabel>
+                                 {isInvalid && (
+                                    <FieldError
+                                       errors={field.state.meta.errors}
+                                    />
+                                 )}
+                              </Field>
+                           );
+                        }}
+                     />
+                     
+                     <from.Field
+                        name="image"
+                        children={(field) => {
+                           const isInvalid =
+                              field.state.meta.isTouched &&
+                              !field.state.meta.isValid;
 
-                        <Select>
-                           <SelectTrigger className="w-full">
-                              <SelectValue placeholder="Select a role" />
-                           </SelectTrigger>
+                           return (
+                              <Field data-invalid={isInvalid}>
+                                 <FieldLabel htmlFor={field.name}>
+                                    Image URL
+                                 </FieldLabel>
+                                 <Input
+                                    type="url"
+                                    id={field.name}
+                                    name={field.name}
+                                    value={field.state.value}
+                                    onChange={(e) =>
+                                       field.handleChange(e.target.value)
+                                    }
+                                    placeholder="https://image.com/sunset.jpg"
+                                 />
 
-                           <SelectContent>
-                              <SelectGroup>
-                                 <SelectLabel>Roles</SelectLabel>
-                                 <SelectItem value="customer">
-                                    Customer
-                                 </SelectItem>
-                                 <SelectItem value="seller">Seller</SelectItem>
-                                 {/* <SelectItem value="admin">Admin</SelectItem> */}
-                              </SelectGroup>
-                           </SelectContent>
-                        </Select>
-                     </Field>
+                                 {isInvalid && (
+                                    <FieldError
+                                       errors={field.state.meta.errors}
+                                    />
+                                 )}
+                              </Field>
+                           );
+                        }}
+                     />
 
-                     <Field>
-                        <FieldLabel htmlFor="email">Email</FieldLabel>
-                        <Input
-                           id="email"
-                           type="email"
-                           placeholder="m@example.com"
-                           required
-                        />
-                     </Field>
+                     <from.Field
+                        name="role"
+                        children={(field) => {
+                           const isInvalid =
+                              field.state.meta.isTouched &&
+                              !field.state.meta.isValid;
 
-                     <Field>
-                        <FieldLabel htmlFor="password">Password</FieldLabel>
-                        <Input id="password" type="password" required />
-                     </Field>
+                           return (
+                              <Field data-invalid={isInvalid}>
+                                 <FieldLabel htmlFor={field.name}>
+                                    Who are you?
+                                 </FieldLabel>
 
-                     <FieldDescription className="-mt-4">
-                        Must be at least 8 characters long.
-                     </FieldDescription>
+                                 <Select
+                                    value={field.state.value}
+                                    onValueChange={(value) =>
+                                       field.handleChange(value)
+                                    }
+                                 >
+                                    <SelectTrigger
+                                       className="w-full"
+                                       id={field.name}
+                                    >
+                                       <SelectValue placeholder="Select a role" />
+                                    </SelectTrigger>
 
-                     <Field>
-                        <Button type="submit" className="cursor-pointer">
-                           Create Account
-                        </Button>
-                     </Field>
+                                    <SelectContent>
+                                       <SelectGroup>
+                                          <SelectLabel>Roles</SelectLabel>
+                                          <SelectItem value="customer">
+                                             Customer
+                                          </SelectItem>
+                                          <SelectItem value="seller">
+                                             Seller
+                                          </SelectItem>
+                                       </SelectGroup>
+                                    </SelectContent>
+                                 </Select>
+
+                                 {isInvalid && (
+                                    <FieldError
+                                       errors={field.state.meta.errors}
+                                    />
+                                 )}
+                              </Field>
+                           );
+                        }}
+                     />
+
+                     <from.Field
+                        name="email"
+                        children={(field) => {
+                           const isInvalid =
+                              field.state.meta.isTouched &&
+                              !field.state.meta.isValid;
+
+                           return (
+                              <Field data-invalid={isInvalid}>
+                                 <FieldLabel htmlFor={field.name}>
+                                    Email
+                                 </FieldLabel>
+                                 <Input
+                                    type="email"
+                                    id={field.name}
+                                    name={field.name}
+                                    value={field.state.value}
+                                    onChange={(e) =>
+                                       field.handleChange(e.target.value)
+                                    }
+                                    placeholder="avathompson@gmail.com"
+                                 />
+
+                                 {isInvalid && (
+                                    <FieldError
+                                       errors={field.state.meta.errors}
+                                    />
+                                 )}
+                              </Field>
+                           );
+                        }}
+                     />
+
+                     <from.Field
+                        name="password"
+                        children={(field) => {
+                           const isInvalid =
+                              field.state.meta.isTouched &&
+                              !field.state.meta.isValid;
+
+                           return (
+                              <Field data-invalid={isInvalid}>
+                                 <FieldLabel htmlFor={field.name}>
+                                    Password
+                                 </FieldLabel>
+                                 <Input
+                                    type="password"
+                                    id={field.name}
+                                    name={field.name}
+                                    value={field.state.value}
+                                    onChange={(e) =>
+                                       field.handleChange(e.target.value)
+                                    }
+                                    placeholder="*********"
+                                 />
+
+                                 {isInvalid && (
+                                    <FieldError
+                                       errors={field.state.meta.errors}
+                                    />
+                                 )}
+                              </Field>
+                           );
+                        }}
+                     />
+
+                     <Button className="w-full cursor-pointer">Register</Button>
+
                      <FieldSeparator className="*:data-[slot=field-separator-content]:bg-card">
                         Or continue with
                      </FieldSeparator>
@@ -138,6 +322,7 @@ export function RegisterForm({
                      </FieldDescription>
                   </FieldGroup>
                </form>
+
                <div className="bg-muted relative hidden md:block">
                   <Image
                      src={registerImg}
@@ -147,7 +332,8 @@ export function RegisterForm({
                </div>
             </CardContent>
          </Card>
-         <FieldDescription className="px-6 text-center">
+
+         <FieldDescription className="mx-auto pb-7 px-6">
             By clicking continue, you agree to our{" "}
             <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
          </FieldDescription>

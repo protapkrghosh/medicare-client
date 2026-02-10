@@ -14,6 +14,17 @@ const eslintConfig = defineConfig([
       "next-env.d.ts",
       "@typescript-eslint/no-unused-vars",
    ]),
+
+   {
+      rules: {
+         "react/no-children-prop": [
+            true,
+            {
+               allowFunctions: true,
+            },
+         ],
+      },
+   },
 ]);
 
 export default eslintConfig;

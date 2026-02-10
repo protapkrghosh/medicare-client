@@ -219,7 +219,7 @@ const renderMenuItem = (item: MenuItem) => {
       <NavigationMenuItem key={item.title}>
          <NavigationMenuLink
             href={item.url}
-            className="group inline-flex h-10 w-max items-center justify-center rounded-md mr-2 text-sm font-medium transition-colors hover:bg-muted hover:text-chart-3 hover:scale-105"
+            className="group inline-flex h-10 w-max items-center justify-center rounded-md mr-2 text-sm font-medium transition-colors hover:bg-background hover:text-chart-3 hover:scale-105"
          >
             {item.title}
          </NavigationMenuLink>
