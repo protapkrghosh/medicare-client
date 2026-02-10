@@ -93,7 +93,7 @@ const Navbar = ({
       <section className={cn("", className)}>
          <div className="container">
             {/* Desktop Menu */}
-            <nav className="hidden items-center justify-between lg:flex bg-primary/5 p-3">
+            <nav className="hidden items-center justify-between lg:flex bg-background p-3">
                <div className="flex items-center gap-6">
                   {/* Logo */}
                   <a href={logo.url} className="flex items-center gap-2">
