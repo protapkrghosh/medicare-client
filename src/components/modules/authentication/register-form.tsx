@@ -43,10 +43,10 @@ export function RegisterForm({
    const handleGoogleLogin = async () => {
       const data = await authClient.signIn.social({
          provider: "google",
-         callbackURL: "http://localhost:3000",
+         callbackURL: `${window.location.origin}`,
       });
 
-      console.log("Register Data :", data);
+      // console.log("Register Data :", data);
    };
 
    const from = useForm({
@@ -143,7 +143,7 @@ export function RegisterForm({
                            );
                         }}
                      />
-                     
+
                      <from.Field
                         name="image"
                         children={(field) => {
