@@ -1,9 +1,6 @@
 "use client";
-
-import * as React from "react";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
-
 import { Button } from "@/components/ui/button";
 import {
    DropdownMenu,
@@ -21,7 +18,7 @@ export function ModeToggle() {
             <Button
                variant="outline"
                size="icon"
-               className="hover:cursor-pointer border-0 bg-background/0 shadow-none dark:bg-background/0 dark:hover:bg-background/0"
+               className="border-0 bg-background/0 hover:bg-background/0 shadow-none dark:bg-background/0 dark:hover:bg-background/0 hover:cursor-pointer hover:rotate-12"
             >
                <Sun className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
                <Moon className="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />

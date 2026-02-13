@@ -27,6 +27,11 @@ import {
 } from "@/components/ui/sheet";
 import Image from "next/image";
 import { ModeToggle } from "./ModeToggle";
+import { authClient } from "@/lib/auth-client";
+import { Input } from "../ui/input";
+import { ButtonGroup } from "@/components/ui/button-group";
+import { Field } from "@/components/ui/field";
+import { IoMdSearch } from "react-icons/io";
 
 interface MenuItem {
    title: string;
@@ -104,6 +109,7 @@ const Navbar = ({
                         width={75}
                         height={100}
                      />
+
                      <span className="text-primary text-[28px] font-bold tracking-tighter">
                         {logo.title}
                      </span>
@@ -111,22 +117,38 @@ const Navbar = ({
                </div>
 
                <div className="flex items-center">
-                  <NavigationMenu>
+                  {/* <NavigationMenu>
                      <NavigationMenuList>
                         {menu.map((item) => renderMenuItem(item))}
                      </NavigationMenuList>
-                  </NavigationMenu>
+                  </NavigationMenu> */}
+
+                  <Field className="w-md">
+                     <ButtonGroup className="relative">
+                        <IoMdSearch className="absolute top-3 ml-3" />
+
+                        <Input
+                           id="input-button-group"
+                           placeholder="Find your medicine"
+                           className="h-10 pl-10"
+                        />
+                        <Button className="h-10 cursor-pointer">Search</Button>
+                     </ButtonGroup>
+                  </Field>
                </div>
 
-               <div className="flex gap-2">
+               <div className="flex items-center gap-2">
                   <ModeToggle />
 
-                  <Button asChild variant="outline" size="sm">
+                  <div className="text-sm hover:text-primary duration-300">
                      <a href={auth.login.url}>{auth.login.title}</a>
-                  </Button>
-                  <Button asChild size="sm">
+                  </div>
+
+                  <small>|</small>
+
+                  <div className="text-sm hover:text-primary duration-300">
                      <a href={auth.signup.url}>{auth.signup.title}</a>
-                  </Button>
+                  </div>
                </div>
             </nav>
 
@@ -166,7 +188,23 @@ const Navbar = ({
                               </a>
                            </SheetTitle>
                         </SheetHeader>
-                        <div className="flex flex-col gap-6 p-4">
+
+                        <div className="flex flex-col gap-6 p-4 -mt-5">
+                           <Field>
+                              <ButtonGroup className="relative">
+                                 <IoMdSearch className="absolute top-3 ml-3" />
+
+                                 <Input
+                                    id="input-button-group"
+                                    placeholder="Find your medicine"
+                                    className="h-10 pl-10"
+                                 />
+                                 <Button className="h-10 cursor-pointer">
+                                    Search
+                                 </Button>
+                              </ButtonGroup>
+                           </Field>
+
                            <Accordion
                               type="single"
                               collapsible
@@ -227,6 +265,7 @@ const renderMenuItem = (item: MenuItem) => {
    );
 };
 
+// Mobile Menu
 const renderMobileMenuItem = (item: MenuItem) => {
    if (item.items) {
       return (
