@@ -32,6 +32,8 @@ import { Input } from "../ui/input";
 import { ButtonGroup } from "@/components/ui/button-group";
 import { Field } from "@/components/ui/field";
 import { IoMdSearch } from "react-icons/io";
+import { IoCartOutline } from "react-icons/io5";
+import Link from "next/link";
 
 interface MenuItem {
    title: string;
@@ -125,7 +127,10 @@ const Navbar = ({
 
                   <Field className="w-md">
                      <ButtonGroup className="relative">
-                        <IoMdSearch className="absolute top-3 ml-3" />
+                        <IoMdSearch
+                           size={20}
+                           className="absolute top-3 ml-3 text-ring/70"
+                        />
 
                         <Input
                            id="input-button-group"
@@ -138,16 +143,18 @@ const Navbar = ({
                </div>
 
                <div className="flex items-center gap-2">
+                  <Link href={"/"} className="relative">
+                     <IoCartOutline size={24} className="text-primary" />
+
+                     <div className="text-[11px] text-primary bg-background border border-primary/40 h-5 w-5 flex items-center justify-center rounded-full absolute -top-2.5 -right-2">
+                        5
+                     </div>
+                  </Link>
+
                   <ModeToggle />
 
                   <div className="text-sm hover:text-primary duration-300">
                      <a href={auth.login.url}>{auth.login.title}</a>
-                  </div>
-
-                  <small>|</small>
-
-                  <div className="text-sm hover:text-primary duration-300">
-                     <a href={auth.signup.url}>{auth.signup.title}</a>
                   </div>
                </div>
             </nav>
