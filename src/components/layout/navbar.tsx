@@ -143,14 +143,9 @@ const Navbar = ({
                   </a>
                </div>
 
+               {/* Search bar */}
                <div className="flex items-center">
-                  {/* <NavigationMenu>
-                     <NavigationMenuList>
-                        {menu.map((item) => renderMenuItem(item))}
-                     </NavigationMenuList>
-                  </NavigationMenu> */}
-
-                  <Field className="w-md">
+                  <Field className="w-md border-l">
                      <ButtonGroup className="relative">
                         <IoMdSearch
                            size={20}
