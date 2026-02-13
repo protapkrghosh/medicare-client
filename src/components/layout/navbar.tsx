@@ -34,6 +34,15 @@ import { Field } from "@/components/ui/field";
 import { IoMdSearch } from "react-icons/io";
 import { IoCartOutline } from "react-icons/io5";
 import Link from "next/link";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+   DropdownMenu,
+   DropdownMenuContent,
+   DropdownMenuGroup,
+   DropdownMenuItem,
+   DropdownMenuSeparator,
+   DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 interface MenuItem {
    title: string;
@@ -96,6 +105,9 @@ const Navbar = ({
    },
    className,
 }: Navbar1Props) => {
+   const { data } = authClient.useSession();
+   const sessionUser = data?.user;
+
    return (
       <section className={cn("", className)}>
          <div className="container">
@@ -142,20 +154,60 @@ const Navbar = ({
                   </Field>
                </div>
 
-               <div className="flex items-center gap-2">
+               <div className="flex items-center gap-6">
                   <Link href={"/"} className="relative">
                      <IoCartOutline size={24} className="text-primary" />
 
-                     <div className="text-[11px] text-primary bg-background border border-primary/40 h-5 w-5 flex items-center justify-center rounded-full absolute -top-2.5 -right-2">
+                     <div className="text-[11px] text-primary bg-border border border-primary/40 h-5 w-5 flex items-center justify-center rounded-full absolute -top-2.5 -right-2">
                         5
                      </div>
                   </Link>
 
-                  <ModeToggle />
+                  {/* <ModeToggle /> */}
 
-                  <div className="text-sm hover:text-primary duration-300">
-                     <a href={auth.login.url}>{auth.login.title}</a>
-                  </div>
+                  {sessionUser ? (
+                     <DropdownMenu>
+                        <DropdownMenuTrigger asChild className="cursor-pointer">
+                           <Button
+                              variant="ghost"
+                              size="icon"
+                              className="rounded-full"
+                           >
+                              <Avatar className="w-10 h-10">
+                                 <AvatarImage
+                                    src={
+                                       sessionUser?.image ||
+                                       "https://i.ibb.co.com/mFrvXNpF/avatar.png"
+                                    }
+                                    alt={sessionUser?.name || "User"}
+                                 />
+                                 <AvatarFallback>MC</AvatarFallback>
+                              </Avatar>
+                           </Button>
+                        </DropdownMenuTrigger>
+
+                        <DropdownMenuContent className="w-44">
+                           <DropdownMenuGroup>
+                              <DropdownMenuItem>Profile</DropdownMenuItem>
+                              <DropdownMenuItem>Billing</DropdownMenuItem>
+                              <DropdownMenuItem>
+                                 <ModeToggle />
+                              </DropdownMenuItem>
+                           </DropdownMenuGroup>
+
+                           <DropdownMenuSeparator />
+                           <DropdownMenuGroup>
+                              <DropdownMenuItem variant="destructive">
+                                 Log out
+                              </DropdownMenuItem>
+                           </DropdownMenuGroup>
+                        </DropdownMenuContent>
+                     </DropdownMenu>
+                  ) : (
+                     <div className="text-sm hover:text-primary duration-300">
+                        <a href={auth.login.url}>{auth.login.title}</a>
+                     </div>
+                  )}
                </div>
             </nav>
 
