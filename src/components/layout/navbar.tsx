@@ -120,8 +120,8 @@ const Navbar = ({
    };
 
    return (
-      <section className={cn("", className)}>
-         <div className="container">
+      <section className={cn("border-b border-primary/10", className)}>
+         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-4 xl:px-2">
             {/* Desktop Menu */}
             <nav className="hidden items-center justify-between lg:flex bg-background p-3">
                <div className="flex items-center gap-6">
