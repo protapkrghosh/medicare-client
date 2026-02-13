@@ -1,5 +1,5 @@
 "use client";
-import { Book, Menu, Sunset, Trees, Zap } from "lucide-react";
+import { Menu } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
@@ -11,11 +11,9 @@ import {
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import {
-   NavigationMenu,
    NavigationMenuContent,
    NavigationMenuItem,
    NavigationMenuLink,
-   NavigationMenuList,
    NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import {
