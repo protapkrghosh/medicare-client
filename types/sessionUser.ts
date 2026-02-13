@@ -12,3 +12,11 @@ export type SessionUser = {
    createdAt: Date;
    updatedAt: Date;
 };
+
+export type UserInfo = {
+   name: string;
+   email: string;
+   image: string | null;
+   role: UserRole;
+   status: UserStatus;
+};

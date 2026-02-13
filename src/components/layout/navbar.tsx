@@ -107,6 +107,7 @@ const Navbar = ({
 }: Navbar1Props) => {
    const { data } = authClient.useSession();
    const sessionUser = data?.user;
+   console.log(data);
 
    const handleLogOut = async () => {
       await authClient.signOut();
