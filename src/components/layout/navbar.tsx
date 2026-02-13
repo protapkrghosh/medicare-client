@@ -108,6 +108,18 @@ const Navbar = ({
    const { data } = authClient.useSession();
    const sessionUser = data?.user;
 
+   const handleLogOut = async () => {
+      await authClient.signOut();
+   };
+
+   const getUserName = (name: string) => {
+      return name
+         .split(" ")
+         .map((word) => word[0])
+         .join("")
+         .toUpperCase();
+   };
+
    return (
       <section className={cn("", className)}>
          <div className="container">
@@ -155,6 +167,7 @@ const Navbar = ({
                </div>
 
                <div className="flex items-center gap-6">
+                  {/* Shopping Cart */}
                   <Link href={"/"} className="relative">
                      <IoCartOutline size={24} className="text-primary" />
 
@@ -163,8 +176,7 @@ const Navbar = ({
                      </div>
                   </Link>
 
-                  {/* <ModeToggle /> */}
-
+                  {/* Login and user profile */}
                   {sessionUser ? (
                      <DropdownMenu>
                         <DropdownMenuTrigger asChild className="cursor-pointer">
@@ -181,12 +193,14 @@ const Navbar = ({
                                     }
                                     alt={sessionUser?.name || "User"}
                                  />
-                                 <AvatarFallback>MC</AvatarFallback>
+                                 <AvatarFallback>
+                                    {getUserName(sessionUser?.name)}
+                                 </AvatarFallback>
                               </Avatar>
                            </Button>
                         </DropdownMenuTrigger>
 
-                        <DropdownMenuContent className="w-44">
+                        <DropdownMenuContent className="w-44 rounded-sm">
                            <DropdownMenuGroup>
                               <DropdownMenuItem>Profile</DropdownMenuItem>
                               <DropdownMenuItem>Billing</DropdownMenuItem>
@@ -197,16 +211,19 @@ const Navbar = ({
 
                            <DropdownMenuSeparator />
                            <DropdownMenuGroup>
-                              <DropdownMenuItem variant="destructive">
+                              <DropdownMenuItem
+                                 variant="destructive"
+                                 onClick={handleLogOut}
+                              >
                                  Log out
                               </DropdownMenuItem>
                            </DropdownMenuGroup>
                         </DropdownMenuContent>
                      </DropdownMenu>
                   ) : (
-                     <div className="text-sm hover:text-primary duration-300">
+                     <Button asChild variant="outline" size="sm">
                         <a href={auth.login.url}>{auth.login.title}</a>
-                     </div>
+                     </Button>
                   )}
                </div>
             </nav>
