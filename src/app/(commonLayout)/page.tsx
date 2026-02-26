@@ -1,4 +1,4 @@
-import { HomeCarousel } from "@/components/modules/home/Home";
+import { HomeCarousel } from "@/components/modules/home/Carousel";
 
 export default async function Home() {
    return (

@@ -39,7 +39,7 @@ export function HomeCarousel() {
             opts={{ loop: true }}
             plugins={[
                Autoplay({
-                  delay: 4000,
+                  delay: 5000,
                }),
             ]}
             className="w-full"
