@@ -75,6 +75,17 @@ interface Navbar1Props {
    };
 }
 
+export const getDashboardUrl = (role: UserRole) => {
+   if (role === "ADMIN") return "/admin-dashboard";
+   if (role === "SELLER") return "/seller-dashboard";
+   return "/dashboard";
+};
+export const getProfileUrl = (role: UserRole) => {
+   if (role === "ADMIN") return "/admin-dashboard/profile";
+   if (role === "SELLER") return "/seller-dashboard/profile";
+   return "/profile";
+};
+
 const Navbar = ({
    logo = {
       url: "/",
@@ -109,7 +120,7 @@ const Navbar = ({
    const { data } = authClient.useSession();
    const sessionUser = data?.user as UserType;
    const role = (sessionUser?.role as UserRole) ?? undefined;
-   // console.log("From Navbar", sessionUser);
+   // console.log("From Navbar", sessionUser, role);
 
    const handleLogOut = async () => {
       await authClient.signOut();
@@ -167,7 +178,11 @@ const Navbar = ({
                <div className="flex items-center gap-6">
                   {/* Dashboard */}
                   {sessionUser ? (
-                     <Link href={"/admin-dashboard"} title="Dashboard" className="-mr-2">
+                     <Link
+                        href={getDashboardUrl(role)}
+                        title="Dashboard"
+                        className="-mr-2"
+                     >
                         <RxDashboard size={19} className="text-primary" />
                      </Link>
                   ) : (
@@ -182,7 +197,7 @@ const Navbar = ({
                         5
                      </div>
                   </Link>
-                  
+
                   {/* Login and user profile */}
                   {sessionUser ? (
                      <>
