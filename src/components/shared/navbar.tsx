@@ -179,7 +179,7 @@ const Navbar = ({
                   {/* Dashboard */}
                   {sessionUser ? (
                      <Link
-                        href={getDashboardUrl(role)}
+                        href={getDashboardUrl(role ?? "CUSTOMER")}
                         title="Dashboard"
                         className="-mr-2"
                      >
@@ -229,7 +229,13 @@ const Navbar = ({
 
                            <DropdownMenuContent className="w-44 rounded-sm">
                               <DropdownMenuGroup>
-                                 <DropdownMenuItem>Profile</DropdownMenuItem>
+                                 <DropdownMenuItem>
+                                    <Link
+                                       href={getProfileUrl(role ?? "CUSTOMER")}
+                                    >
+                                       Profile
+                                    </Link>
+                                 </DropdownMenuItem>
                                  <DropdownMenuItem>Billing</DropdownMenuItem>
                                  <DropdownMenuItem>
                                     <ModeToggle />

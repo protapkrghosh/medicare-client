@@ -16,14 +16,22 @@ import {
 
 export default function DashboardLayout({
    admin,
-   user,
+   customer,
+   seller,
 }: {
    children: React.ReactNode;
    admin: React.ReactNode;
-   user: React.ReactNode;
+   customer: React.ReactNode;
+   seller: React.ReactNode;
 }) {
    const userInfo = {
       role: "admin",
+   };
+
+   const renderSlot = () => {
+      if (userInfo.role === "admin") return admin;
+      if (userInfo.role === "seller") return seller;
+      return customer;
    };
 
    return (
@@ -50,9 +58,7 @@ export default function DashboardLayout({
                   </BreadcrumbList>
                </Breadcrumb>
             </header>
-            <div className="flex flex-1 flex-col gap-4 p-4">
-               {userInfo.role === "admin" ? admin : user}
-            </div>
+            <div className="flex flex-1 flex-col gap-4 p-4">{renderSlot()}</div>
          </SidebarInset>
       </SidebarProvider>
    );

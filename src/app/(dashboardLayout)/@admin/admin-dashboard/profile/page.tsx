@@ -5,7 +5,7 @@ import { useState } from "react";
 import Swal from "sweetalert2";
 import { UserType } from "../../../../../../types/userType";
 
-export default function SellerProfile() {
+export default function AdminProfile() {
    const { data: session, isPending, error } = authClient.useSession();
    const [updatingPassword, setUpdatingPassword] = useState(false);
    const [currentPassword, setCurrentPassword] = useState("");
@@ -29,7 +29,6 @@ export default function SellerProfile() {
    }
 
    const user = session?.user as UserType;
-
    const handlePasswordUpdate = async () => {
       if (!currentPassword || !newPassword || !confirmPassword) {
          Swal.fire("Error", "Please fill in all fields", "error");
