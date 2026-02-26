@@ -31,7 +31,7 @@ export default function Footer({
                <div className="space-y-4">
                   <div className="flex items-center gap-6">
                      {/* Logo */}
-                     <a href={logo.url} className="flex items-center gap-2">
+                     <Link href={logo.url} className="flex items-center gap-2">
                         <Image
                            src={logo.src}
                            className="dark:invert"
@@ -43,7 +43,7 @@ export default function Footer({
                         <span className="text-primary text-[28px] font-bold tracking-tighter">
                            {logo.title}
                         </span>
-                     </a>
+                     </Link>
                   </div>
                   <p className="text-sm text-gray-400">
                      Your trusted online medicine shop providing quality

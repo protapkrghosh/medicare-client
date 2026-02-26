@@ -24,7 +24,7 @@ import {
    SheetTrigger,
 } from "@/components/ui/sheet";
 import Image from "next/image";
-import { ModeToggle } from "./ModeToggle";
+import { ModeToggle } from "../layout/ModeToggle";
 import { authClient } from "@/lib/auth-client";
 import { Input } from "../ui/input";
 import { ButtonGroup } from "@/components/ui/button-group";
@@ -126,7 +126,7 @@ const Navbar = ({
             <nav className="hidden items-center justify-between lg:flex bg-background p-3">
                <div className="flex items-center gap-6">
                   {/* Logo */}
-                  <a href={logo.url} className="flex items-center gap-2">
+                  <Link href={logo.url} className="flex items-center gap-2">
                      <Image
                         src={logo.src}
                         className="dark:invert"
@@ -138,7 +138,7 @@ const Navbar = ({
                      <span className="text-primary text-[28px] font-bold tracking-tighter">
                         {logo.title}
                      </span>
-                  </a>
+                  </Link>
                </div>
 
                {/* Search bar */}
@@ -216,7 +216,7 @@ const Navbar = ({
                      </DropdownMenu>
                   ) : (
                      <Button asChild variant="outline" size="sm">
-                        <a href={auth.login.url}>{auth.login.title}</a>
+                        <Link href={auth.login.url}>{auth.login.title}</Link>
                      </Button>
                   )}
                </div>
@@ -226,7 +226,7 @@ const Navbar = ({
             <div className="block lg:hidden">
                <div className="flex items-center justify-between">
                   {/* Logo */}
-                  <a href={logo.url} className="flex items-center gap-2">
+                  <Link href={logo.url} className="flex items-center gap-2">
                      <Image
                         src={logo.src}
                         className="dark:invert"
@@ -234,7 +234,7 @@ const Navbar = ({
                         width={75}
                         height={100}
                      />
-                  </a>
+                  </Link>
                   <Sheet>
                      <SheetTrigger asChild>
                         <Button variant="outline" size="icon">
@@ -244,7 +244,7 @@ const Navbar = ({
                      <SheetContent className="overflow-y-auto">
                         <SheetHeader>
                            <SheetTitle>
-                              <a
+                              <Link
                                  href={logo.url}
                                  className="flex items-center gap-2"
                               >
@@ -255,7 +255,7 @@ const Navbar = ({
                                     width={75}
                                     height={100}
                                  />
-                              </a>
+                              </Link>
                            </SheetTitle>
                         </SheetHeader>
 
@@ -285,12 +285,14 @@ const Navbar = ({
 
                            <div className="flex flex-col gap-3">
                               <Button asChild variant="outline">
-                                 <a href={auth.login.url}>{auth.login.title}</a>
+                                 <Link href={auth.login.url}>
+                                    {auth.login.title}
+                                 </Link>
                               </Button>
                               <Button asChild>
-                                 <a href={auth.signup.url}>
+                                 <Link href={auth.signup.url}>
                                     {auth.signup.title}
-                                 </a>
+                                 </Link>
                               </Button>
                            </div>
                         </div>
