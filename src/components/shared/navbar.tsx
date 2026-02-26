@@ -41,6 +41,7 @@ import {
    DropdownMenuSeparator,
    DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { RxDashboard } from "react-icons/rx";
 
 interface MenuItem {
    title: string;
@@ -161,59 +162,74 @@ const Navbar = ({
                </div>
 
                <div className="flex items-center gap-6">
+                  {/* Dashboard */}
+                  {sessionUser ? (
+                     <Link href={""} title="Dashboard" className="-mr-2">
+                        <RxDashboard size={19} className="text-primary" />
+                     </Link>
+                  ) : (
+                     ""
+                  )}
+
                   {/* Shopping Cart */}
-                  <Link href={"/"} className="relative">
+                  <Link href={"/"} className="relative" title="Cart">
                      <IoCartOutline size={24} className="text-primary" />
 
                      <div className="text-[11px] text-primary bg-border border border-primary/40 h-5 w-5 flex items-center justify-center rounded-full absolute -top-2.5 -right-2">
                         5
                      </div>
                   </Link>
-
+                  
                   {/* Login and user profile */}
                   {sessionUser ? (
-                     <DropdownMenu>
-                        <DropdownMenuTrigger asChild className="cursor-pointer">
-                           <Button
-                              variant="ghost"
-                              size="icon"
-                              className="rounded-full"
+                     <>
+                        <DropdownMenu>
+                           <DropdownMenuTrigger
+                              asChild
+                              className="cursor-pointer"
+                              title="Profile"
                            >
-                              <Avatar className="w-10 h-10">
-                                 <AvatarImage
-                                    src={
-                                       sessionUser?.image ||
-                                       "https://i.ibb.co.com/mFrvXNpF/avatar.png"
-                                    }
-                                    alt={sessionUser?.name || "User"}
-                                 />
-                                 <AvatarFallback>
-                                    {getUserName(sessionUser?.name)}
-                                 </AvatarFallback>
-                              </Avatar>
-                           </Button>
-                        </DropdownMenuTrigger>
-
-                        <DropdownMenuContent className="w-44 rounded-sm">
-                           <DropdownMenuGroup>
-                              <DropdownMenuItem>Profile</DropdownMenuItem>
-                              <DropdownMenuItem>Billing</DropdownMenuItem>
-                              <DropdownMenuItem>
-                                 <ModeToggle />
-                              </DropdownMenuItem>
-                           </DropdownMenuGroup>
-
-                           <DropdownMenuSeparator />
-                           <DropdownMenuGroup>
-                              <DropdownMenuItem
-                                 variant="destructive"
-                                 onClick={handleLogOut}
+                              <Button
+                                 variant="ghost"
+                                 size="icon"
+                                 className="rounded-full"
                               >
-                                 Log out
-                              </DropdownMenuItem>
-                           </DropdownMenuGroup>
-                        </DropdownMenuContent>
-                     </DropdownMenu>
+                                 <Avatar className="w-10 h-10">
+                                    <AvatarImage
+                                       src={
+                                          sessionUser?.image ||
+                                          "https://i.ibb.co.com/mFrvXNpF/avatar.png"
+                                       }
+                                       alt={sessionUser?.name || "User"}
+                                    />
+                                    <AvatarFallback>
+                                       {getUserName(sessionUser?.name)}
+                                    </AvatarFallback>
+                                 </Avatar>
+                              </Button>
+                           </DropdownMenuTrigger>
+
+                           <DropdownMenuContent className="w-44 rounded-sm">
+                              <DropdownMenuGroup>
+                                 <DropdownMenuItem>Profile</DropdownMenuItem>
+                                 <DropdownMenuItem>Billing</DropdownMenuItem>
+                                 <DropdownMenuItem>
+                                    <ModeToggle />
+                                 </DropdownMenuItem>
+                              </DropdownMenuGroup>
+
+                              <DropdownMenuSeparator />
+                              <DropdownMenuGroup>
+                                 <DropdownMenuItem
+                                    variant="destructive"
+                                    onClick={handleLogOut}
+                                 >
+                                    Log out
+                                 </DropdownMenuItem>
+                              </DropdownMenuGroup>
+                           </DropdownMenuContent>
+                        </DropdownMenu>
+                     </>
                   ) : (
                      <Button asChild variant="outline" size="sm">
                         <Link href={auth.login.url}>{auth.login.title}</Link>

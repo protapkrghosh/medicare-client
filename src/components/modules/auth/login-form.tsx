@@ -20,6 +20,7 @@ import * as z from "zod";
 import { toast } from "sonner";
 import { useState } from "react";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
    email: z.email(),
@@ -30,6 +31,7 @@ export function LoginForm({
    className,
    ...props
 }: React.ComponentProps<"div">) {
+   const router = useRouter();
    const [showPassword, setShowPassword] = useState(false);
 
    const handleGoogleLogin = async () => {
@@ -38,6 +40,8 @@ export function LoginForm({
          callbackURL: `${window.location.origin}`,
       });
 
+      router.push("/"); // Navigate home page
+      
       // console.log("Login Data :", data);
    };
 
@@ -67,6 +71,8 @@ export function LoginForm({
                id: toastId,
                position: "top-right",
             });
+
+            router.push("/"); // Navigate home page
 
             from.reset();
          } catch (error) {
@@ -156,32 +162,38 @@ export function LoginForm({
                                  </div>
 
                                  <div className="relative">
-                                                                     <Input
-                                                                        type={showPassword ? "text" : "password"}
-                                                                        id={field.name}
-                                                                        name={field.name}
-                                                                        value={field.state.value}
-                                                                        onChange={(e) =>
-                                                                           field.handleChange(e.target.value)
-                                                                        }
-                                                                        placeholder="*********"
-                                                                        className="pr-10"
-                                                                     />
-                                 
-                                                                     <button
-                                                                        type="button"
-                                                                        onClick={() =>
-                                                                           setShowPassword((prev) => !prev)
-                                                                        }
-                                                                        className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground"
-                                                                     >
-                                                                        {showPassword ? (
-                                                                           <IoMdEyeOff size={18}  className="opacity-60"/>
-                                                                        ) : (
-                                                                           <IoMdEye size={18} className="opacity-60"/>
-                                                                        )}
-                                                                     </button>
-                                                                  </div>
+                                    <Input
+                                       type={showPassword ? "text" : "password"}
+                                       id={field.name}
+                                       name={field.name}
+                                       value={field.state.value}
+                                       onChange={(e) =>
+                                          field.handleChange(e.target.value)
+                                       }
+                                       placeholder="*********"
+                                       className="pr-10"
+                                    />
+
+                                    <button
+                                       type="button"
+                                       onClick={() =>
+                                          setShowPassword((prev) => !prev)
+                                       }
+                                       className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground"
+                                    >
+                                       {showPassword ? (
+                                          <IoMdEyeOff
+                                             size={18}
+                                             className="opacity-60"
+                                          />
+                                       ) : (
+                                          <IoMdEye
+                                             size={18}
+                                             className="opacity-60"
+                                          />
+                                       )}
+                                    </button>
+                                 </div>
 
                                  {isInvalid && (
                                     <FieldError

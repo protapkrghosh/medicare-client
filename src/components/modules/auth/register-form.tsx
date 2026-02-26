@@ -29,6 +29,7 @@ import * as z from "zod";
 import { toast } from "sonner";
 import { useState } from "react";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
    name: z.string().min(1, "This field is required"),
@@ -42,6 +43,7 @@ export function RegisterForm({
    className,
    ...props
 }: React.ComponentProps<"div">) {
+   const router = useRouter();
    const [showPassword, setShowPassword] = useState(false);
 
    const handleGoogleLogin = async () => {
@@ -49,6 +51,8 @@ export function RegisterForm({
          provider: "google",
          callbackURL: `${window.location.origin}`,
       });
+
+      router.push("/"); // Navigate home page
 
       // console.log("Register Data :", data);
    };
@@ -88,6 +92,7 @@ export function RegisterForm({
                position: "top-right",
             });
 
+            router.push("/login"); // Navigate login page
             from.reset();
          } catch (error) {
             toast.error("Something went wrong, Please try again.", {
