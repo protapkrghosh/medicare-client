@@ -42,6 +42,8 @@ import {
    DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { RxDashboard } from "react-icons/rx";
+import { UserType } from "../../../types/userType";
+import { UserRole } from "../../../types/rolesType";
 
 interface MenuItem {
    title: string;
@@ -105,8 +107,9 @@ const Navbar = ({
    className,
 }: Navbar1Props) => {
    const { data } = authClient.useSession();
-   const sessionUser = data?.user;
-   console.log("From Navbar", sessionUser);
+   const sessionUser = data?.user as UserType;
+   const role = (sessionUser?.role as UserRole) ?? undefined;
+   // console.log("From Navbar", sessionUser);
 
    const handleLogOut = async () => {
       await authClient.signOut();
@@ -164,7 +167,7 @@ const Navbar = ({
                <div className="flex items-center gap-6">
                   {/* Dashboard */}
                   {sessionUser ? (
-                     <Link href={"/dashboard"} title="Dashboard" className="-mr-2">
+                     <Link href={"/admin-dashboard"} title="Dashboard" className="-mr-2">
                         <RxDashboard size={19} className="text-primary" />
                      </Link>
                   ) : (
