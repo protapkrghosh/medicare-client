@@ -106,7 +106,7 @@ const Navbar = ({
 }: Navbar1Props) => {
    const { data } = authClient.useSession();
    const sessionUser = data?.user;
-   // console.log(data);
+   console.log("From Navbar", sessionUser);
 
    const handleLogOut = async () => {
       await authClient.signOut();
@@ -164,7 +164,7 @@ const Navbar = ({
                <div className="flex items-center gap-6">
                   {/* Dashboard */}
                   {sessionUser ? (
-                     <Link href={""} title="Dashboard" className="-mr-2">
+                     <Link href={"/dashboard"} title="Dashboard" className="-mr-2">
                         <RxDashboard size={19} className="text-primary" />
                      </Link>
                   ) : (
